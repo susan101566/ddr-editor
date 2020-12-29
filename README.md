@@ -1,12 +1,16 @@
 Work in progress DDR in-browser stepchart editor.
 
-ThreeJS
-React
-Typescript
+Stack:
+- ThreeJS
+- React
+- Typescript
 
-Install once using `npm install`, then run locally with `npm start`
+Install once using `npm install`, then run locally with `npm start`.
+
 Use `j`, `k` keys to go forward/back in elapsed time.
+
 Use `<Space>` to pause/play the song.
+
 You can also toggle showing the waveform / select from a few sample songs.
 Showing waveform might impact frame rate significantly.
 
