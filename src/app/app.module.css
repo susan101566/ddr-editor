@@ -1,0 +1,30 @@
+
+.canvas {
+  position: absolute;
+  right: 0;
+  top:0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.chart {
+  position: absolute;
+  left: 0;
+  top:0;
+  bottom: 0;
+  width: 50%;
+  overflow: auto;
+}
+
+.waveform2 {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: 1000px;
+}
+
+.waveform {
+  transform: translate(100%) rotate(90deg);
+  transform-origin: top left;
+}

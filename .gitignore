@@ -1,0 +1,14 @@
+# Node
+node_modules
+*.log
+*.log.*
+
+# VS Code IDE
+.vscode
+.eslintcache
+
+# OSX
+.DS_Store
+
+# Dev tools
+build
