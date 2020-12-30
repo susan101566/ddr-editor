@@ -1,11 +1,12 @@
 import React from 'react'
-import { Chart, WaveBuffer } from 'app/type'
+import { Chart, Song, WaveBuffer } from 'app/type'
 import { Canvas } from './canvas'
 import styles from './app.module.css'
-import { allSongs, audioFileUrl, loadAudio, loadChart, Song} from './song'
+import { loadAudio, loadChart } from './song'
+import { allSongs } from './songs_generated'
 
 const fps = 60
-const defaultSongId = "liveforever"
+const defaultSongId = Object.keys(allSongs)[0]
 
 type State = {
   song: Song | null
@@ -238,8 +239,8 @@ export class App extends React.Component<{}, State> {
       <div>
         <div className={styles.chart}>{this.renderChart()}</div>
         <audio ref={this.audioRef}>
-          <source src={audioFileUrl(song)} type="audio/mpeg" />
-          <source src={audioFileUrl(song)} type="audio/ogg" />
+          <source src={song?.audio} type="audio/mpeg" />
+          <source src={song?.audio} type="audio/ogg" />
         </audio>
         <Canvas
           className={styles.canvas}

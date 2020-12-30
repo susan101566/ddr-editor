@@ -1,4 +1,8 @@
 
+export type Song = {
+  id: string, label: string, audio: string, sm: string
+}
+
 export interface Chart {
   title: string
   artist: string

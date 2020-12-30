@@ -27,6 +27,7 @@ const holdColor = '#87d95f'
 const mineColor = '#ff2b00'
 
 const allDiffuculties = ['Beginner', 'Easy', 'Medium', 'Hard', 'Challenge']
+const allModes: {[key: string]: LevelType } = {'dance-single': 'single', 'dance-double': 'double'}
 
 function isNote(line: string, mode: LevelType) {
   line = line.trim()
@@ -98,18 +99,27 @@ class Parser {
           continue
         } // startsWith(#)
 
-        // Parse for incompatible sections by keyword
-        if (line.indexOf('dance-single') >= 0) {
-          curType = 'single'
-        } else if (line.indexOf('dance-double') >= 0) {
-          curType = 'double'
-        }
-
-        for (const difficulty of allDiffuculties) {
-          if (line.indexOf(difficulty) >= 0) {
-            curDifficulty = difficulty
+        // Parse for mode and difficulty
+        if (line.endsWith(':')) {
+          const segs = line.split(':')
+          if (segs.length !== 2) {
+            this.error(`Splitting by ':' returned more than two segments`, i)
           }
-        }
+          const value = segs[0]
+          if (allModes[value]) {
+            curType = allModes[value]
+          }
+
+          if (allDiffuculties.indexOf(value) >= 0) {
+            curDifficulty = value
+            const difficultyNumber = parseInt(this.lines[i + 1])
+            if (!isNaN(difficultyNumber)) {
+              curDifficulty = `${curDifficulty} - ${difficultyNumber}`
+              linesRead = 2
+            }
+          }
+          continue
+        } // endsWith(:)
 
         // Check if we can parse notes now
         if (curType && isNote(line, curType)) {
