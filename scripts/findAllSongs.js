@@ -58,14 +58,14 @@ function parse(dirPath) {
         }
 
         if (!musicAbsPath) {
-          throw new Error(`parse: cannot find music file for ${absPath}`)
+          console.error(`parse: cannot find music file for ${absPath}`)
         }
         const songName = pathLib.basename(dirPath)
         allSongsJson[songName] = {
           id: songName,
           label: songName,
           sm: absPath.replace(songsFolder, publicFolder),
-          audio: musicAbsPath.replace(songsFolder, publicFolder),
+          audio: musicAbsPath ? musicAbsPath.replace(songsFolder, publicFolder) : null,
         }
         res()
       })

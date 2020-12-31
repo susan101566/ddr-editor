@@ -160,10 +160,15 @@ export class App extends React.Component<{}, State> {
       throw new Error(`App: pausing with interval`)
     }
     const song = this.state.chart
-    if (!song || !this.audio || this.audio.readyState !== 4) {
-      throw new Error(`App: onPlay with no song or no audio or audio not ready`)
+    if (!song) {
+      throw new Error(`App: onPlay with no song`)
     }
-    this.audio.play()
+
+    const audioReady = this.audio && this.audio.readyState === 4
+    if (audioReady) {
+      this.audio!.play()
+    }
+
     this.setState({ isPlaying: true })
     const startTime = performance.now()
     let last = startTime
@@ -172,11 +177,7 @@ export class App extends React.Component<{}, State> {
       const now = performance.now()
       console.log('time from last frame', now - last)
       last = now
-
-      let elapsed = (performance.now() - startTime) / 1000
-      if (this.audio) {
-        elapsed = this.audio.currentTime
-      }
+      const elapsed = audioReady ? this.audio!.currentTime : (performance.now() - startTime) / 1000
       this.setState({ elapsed })
     }, 1000 / fps)
   }
