@@ -5,7 +5,9 @@ import styles from './app.module.css'
 import { loadAudio, loadChart } from './song'
 import { allSongs } from './songs_generated'
 
-const fps = 60
+// We only want 60 fps, but you only set it to 60, then the browser will be lazy and might not hit
+// it if a lot of work is done in the previous frame.
+const fps = 120
 const defaultSongId = Object.keys(allSongs)[0]
 
 type State = {
